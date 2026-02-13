@@ -542,6 +542,7 @@ set(SOURCES
     src/cpp/server/backends/whisper_server.cpp
     src/cpp/server/backends/kokoro_server.cpp
     src/cpp/server/backends/sd_server.cpp
+    src/cpp/server/backends/ryzenai_sd_server.cpp
     src/cpp/server/backends/backend_utils.cpp
 )
 

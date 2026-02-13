@@ -1167,6 +1167,7 @@
             "image"
         ],
         "size": 5.2,
+        "img2img": false,
         "image_defaults": {
             "steps": 4,
             "cfg_scale": 1.0,
@@ -1182,6 +1183,7 @@
             "image"
         ],
         "size": 6.9,
+        "img2img": false,
         "image_defaults": {
             "steps": 4,
             "cfg_scale": 1.0,
@@ -1217,6 +1219,118 @@
             "cfg_scale": 7.5,
             "width": 1024,
             "height": 1024
+        }
+    },
+    "SD-1.5-NPU": {
+        "checkpoint": "amd/stable-diffusion-1.5-amdnpu",
+        "recipe": "ryzenai-sd",
+        "suggested": true,
+        "labels": [
+            "image"
+        ],
+        "size": 1.7,
+        "img2img": false,
+        "image_defaults": {
+            "steps": 20,
+            "cfg_scale": 7.0,
+            "width": 512,
+            "height": 512
+        }
+    },
+    "SD-Turbo-NPU": {
+        "checkpoint": "amd/sd-turbo-amdnpu",
+        "recipe": "ryzenai-sd",
+        "suggested": true,
+        "labels": [
+            "image"
+        ],
+        "size": 1.7,
+        "img2img": false,
+        "image_defaults": {
+            "steps": 1,
+            "cfg_scale": 7.0,
+            "width": 512,
+            "height": 512
+        }
+    },
+    "SDXL-Turbo-NPU": {
+        "checkpoint": "amd/sdxl-turbo-amdnpu",
+        "recipe": "ryzenai-sd",
+        "suggested": true,
+        "labels": [
+            "image"
+        ],
+        "size": 2.5,
+        "img2img": false,
+        "image_defaults": {
+            "steps": 4,
+            "cfg_scale": 7.0,
+            "width": 512,
+            "height": 512
+        }
+    },
+    "SDXL-Base-NPU": {
+        "checkpoint": "amd/sdxl-base-amdnpu",
+        "recipe": "ryzenai-sd",
+        "suggested": true,
+        "labels": [
+            "image"
+        ],
+        "size": 2.5,
+        "img2img": false,
+        "image_defaults": {
+            "steps": 20,
+            "cfg_scale": 7.0,
+            "width": 512,
+            "height": 512
+        }
+    },
+    "Segmind-Vega-NPU": {
+        "checkpoint": "amd/segmind-vega-amdnpu",
+        "recipe": "ryzenai-sd",
+        "suggested": true,
+        "labels": [
+            "image"
+        ],
+        "size": 1.3,
+        "img2img": false,
+        "image_defaults": {
+            "steps": 20,
+            "cfg_scale": 7.0,
+            "width": 512,
+            "height": 512
+        }
+    },
+    "SD3-Medium-NPU": {
+        "checkpoint": "amd/stable-diffusion-3-medium-amdnpu",
+        "recipe": "ryzenai-sd",
+        "suggested": true,
+        "labels": [
+            "image"
+        ],
+        "size": 4.7,
+        "img2img": true,
+        "image_defaults": {
+            "steps": 28,
+            "cfg_scale": 7.0,
+            "width": 512,
+            "height": 512
+        }
+    },
+    "SD3.5-Medium-NPU": {
+        "checkpoint": "amd/stable-diffusion-3.5-medium-amdnpu",
+        "recipe": "ryzenai-sd",
+        "suggested": true,
+        "labels": [
+            "image"
+        ],
+        "size": 4.7,
+        "img2img": true,
+        "image_defaults": {
+            "steps": 28,
+            "cfg_scale": 7.0,
+            "width": 512,
+            "height": 512
         }
     },
     "kokoro-v1": {

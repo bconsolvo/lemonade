@@ -69,8 +69,28 @@ export interface StableDiffusionOptions {
   saveOptions: BooleanOption;
 }
 
+export interface RyzenAISDOptions {
+  recipe: 'ryzenai-sd';
+  steps: NumericOption;
+  cfgScale: NumericOption;
+  width: NumericOption;
+  height: NumericOption;
+  negativePrompt: StringOption;
+  seed: NumericOption;
+  numImages: NumericOption;
+  initImagePath: StringOption;
+  strength: NumericOption;
+  sd3Mode: StringOption;
+  controlnetConditioningScale: NumericOption;
+  t5SequenceLen: NumericOption;
+  controlImagePath: StringOption;
+  controlMaskPath: StringOption;
+  imagePads: StringOption;
+  saveOptions: BooleanOption;
+}
+
 // Union type of all recipe options
-export type RecipeOptions = LlamaOptions | WhisperOptions | FlmOptions | RyzenAIOptions | StableDiffusionOptions;
+export type RecipeOptions = LlamaOptions | WhisperOptions | FlmOptions | RyzenAIOptions | StableDiffusionOptions | RyzenAISDOptions;
 
 // =============================================================================
 // Recipe Constants
@@ -207,6 +227,89 @@ export const OPTION_DEFINITIONS: Record<string, OptionDef> = {
     description: 'Image height in pixels',
   },
 
+  // RyzenAI SD specific options
+  negativePrompt: {
+    type: 'string',
+    default: '',
+    label: 'Negative Prompt',
+    description: 'Negative prompt for image generation',
+  },
+  seed: {
+    type: 'numeric',
+    default: -1,
+    min: -1,
+    max: 999999999,
+    step: 1,
+    label: 'Seed',
+    description: 'Random seed (-1 for random)',
+  },
+  numImages: {
+    type: 'numeric',
+    default: 1,
+    min: 1,
+    max: 10,
+    step: 1,
+    label: 'Num Images',
+    description: 'Number of images to generate',
+  },
+  initImagePath: {
+    type: 'string',
+    default: '',
+    label: 'Init Image',
+    description: 'Path to initial image for img2img',
+  },
+  strength: {
+    type: 'numeric',
+    default: 0.3,
+    min: 0.0,
+    max: 1.0,
+    step: 0.05,
+    label: 'Strength',
+    description: 'Denoising strength for img2img',
+  },
+  sd3Mode: {
+    type: 'string',
+    default: 'text2img',
+    label: 'SD3 Mode',
+    description: 'SD3 generation mode',
+  },
+  controlnetConditioningScale: {
+    type: 'numeric',
+    default: 0.5,
+    min: 0.0,
+    max: 2.0,
+    step: 0.1,
+    label: 'ControlNet Scale',
+    description: 'ControlNet conditioning scale',
+  },
+  t5SequenceLen: {
+    type: 'numeric',
+    default: 256,
+    min: 128,
+    max: 512,
+    step: 64,
+    label: 'T5 Sequence Length',
+    description: 'T5 text encoder sequence length (SD3)',
+  },
+  controlImagePath: {
+    type: 'string',
+    default: '',
+    label: 'Control Image',
+    description: 'Path to control image for ControlNet',
+  },
+  controlMaskPath: {
+    type: 'string',
+    default: '',
+    label: 'Control Mask',
+    description: 'Path to mask for inpainting/removal',
+  },
+  imagePads: {
+    type: 'string',
+    default: '',
+    label: 'Image Pads',
+    description: 'Padding for outpainting (left,right,top,bottom)',
+  },
+
   // Common option - save settings
   saveOptions: {
     type: 'boolean',
@@ -220,7 +323,7 @@ export const OPTION_DEFINITIONS: Record<string, OptionDef> = {
 // Recipe Configuration - Maps recipes to their available options
 // =============================================================================
 
-export type RecipeName = 'llamacpp' | 'whispercpp' | 'flm' | 'ryzenai-llm' | 'sd-cpp';
+export type RecipeName = 'llamacpp' | 'whispercpp' | 'flm' | 'ryzenai-llm' | 'sd-cpp' | 'ryzenai-sd';
 
 /**
  * Maps recipe names to the option keys they support.
@@ -232,6 +335,9 @@ export const RECIPE_OPTIONS_MAP: Record<RecipeName, string[]> = {
   'flm': ['ctxSize', 'saveOptions'],
   'ryzenai-llm': ['ctxSize', 'saveOptions'],
   'sd-cpp': ['sdcppBackend', 'steps', 'cfgScale', 'width', 'height', 'saveOptions'],
+  'ryzenai-sd': ['steps', 'cfgScale', 'width', 'height', 'negativePrompt', 'seed', 'numImages', 
+                 'initImagePath', 'strength', 'sd3Mode', 'controlnetConditioningScale', 't5SequenceLen',
+                 'controlImagePath', 'controlMaskPath', 'imagePads', 'saveOptions'],
 };
 
 /**
@@ -262,6 +368,15 @@ const FRONTEND_TO_API_MAP: Record<string, string> = {
   whispercppBackend: 'whispercpp_backend',
   sdcppBackend: 'sd-cpp_backend',
   cfgScale: 'cfg_scale',
+  negativePrompt: 'negative_prompt',
+  numImages: 'num_images',
+  initImagePath: 'init_image_path',
+  sd3Mode: 'sd3_mode',
+  controlnetConditioningScale: 'controlnet_conditioning_scale',
+  t5SequenceLen: 't5_sequence_len',
+  controlImagePath: 'control_image_path',
+  controlMaskPath: 'control_mask_path',
+  imagePads: 'image_pads',
   saveOptions: 'save_options',
 };
 

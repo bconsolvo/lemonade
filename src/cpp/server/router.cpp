@@ -5,6 +5,7 @@
 #include "lemon/backends/whisper_server.h"
 #include "lemon/backends/kokoro_server.h"
 #include "lemon/backends/sd_server.h"
+#include "lemon/backends/ryzenai_sd_server.h"
 #include "lemon/server_capabilities.h"
 #include "lemon/error_types.h"
 #include "lemon/recipe_options.h"
@@ -159,6 +160,9 @@ std::unique_ptr<WrappedServer> Router::create_backend_server(const ModelInfo& mo
     } else if (model_info.recipe == "sd-cpp") {
         std::cout << "[Router] Creating SDServer backend" << std::endl;
         new_server = std::make_unique<backends::SDServer>(log_level_, model_manager_);
+    } else if (model_info.recipe == "ryzenai-sd") {
+        std::cout << "[Router] Creating RyzenAI SD Server backend" << std::endl;
+        new_server = std::make_unique<backends::RyzenAISDServer>(log_level_, model_manager_);
     } else if (model_info.recipe == "flm") {
         std::cout << "[Router] Creating FastFlowLM backend" << std::endl;
         new_server = std::make_unique<backends::FastFlowLMServer>(log_level_, model_manager_);

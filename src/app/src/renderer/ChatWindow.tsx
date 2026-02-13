@@ -346,7 +346,14 @@ const fetchLoadedModel = async () => {
     console.log('[ImageDetection] labels:', modelInfo?.labels);
 
     return modelInfo?.recipe === 'sd-cpp' ||
+           modelInfo?.recipe === 'ryzenai-sd' ||
            modelInfo?.labels?.includes('image') || false;
+  };
+
+  const isSD3Model = (): boolean => {
+    const modelInfo = modelsData[selectedModel];
+    return modelInfo?.model_id?.toLowerCase().includes('sd3') ||
+           modelInfo?.model_id?.toLowerCase().includes('sd-3') || false;
   };
 
   const getModelType = (): 'llm' | 'embedding' | 'reranking' | 'transcription' | 'image' => {

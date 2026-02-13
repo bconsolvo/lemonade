@@ -17,11 +17,23 @@ static const json DEFAULTS = {
     {"llamacpp_args", ""},
     {"sd-cpp_backend", "cpu"},  // sd.cpp backend selection (cpu or rocm)
     {"whispercpp_backend", "npu"},
-    // Image generation defaults (for sd-cpp recipe)
+    // Image generation defaults (for sd-cpp and ryzenai-sd recipes)
     {"steps", 20},
     {"cfg_scale", 7.0},
     {"width", 512},
-    {"height", 512}
+    {"height", 512},
+    // RyzenAI SD specific options
+    {"negative_prompt", ""},
+    {"seed", -1},
+    {"num_images", 1},
+    {"init_image_path", ""},
+    {"strength", 0.3},
+    {"sd3_mode", "text2img"},
+    {"controlnet_conditioning_scale", 0.5},
+    {"t5_sequence_len", 256},
+    {"control_image_path", ""},
+    {"control_mask_path", ""},
+    {"image_pads", ""}
 };
 
 // CLI_OPTIONS without allowed_values for inference engines (will be set dynamically)
@@ -86,6 +98,56 @@ static const json CLI_OPTIONS = {
         {"envname", "LEMONADE_HEIGHT"},
         {"help", "Image height in pixels"}
     }},
+    // RyzenAI SD specific options
+    {"--negative-prompt", {
+        {"option_name", "negative_prompt"},
+        {"type_name", "TEXT"},
+        {"envname", "LEMONADE_NEGATIVE_PROMPT"},
+        {"help", "Negative prompt for image generation"}
+    }},
+    {"--seed", {
+        {"option_name", "seed"},
+        {"type_name", "N"},
+        {"envname", "LEMONADE_SEED"},
+        {"help", "Random seed for image generation (-1 for random)"}
+    }},
+    {"--num-images", {
+        {"option_name", "num_images"},
+        {"type_name", "N"},
+        {"envname", "LEMONADE_NUM_IMAGES"},
+        {"help", "Number of images to generate"}
+    }},
+    {"--init-image", {
+        {"option_name", "init_image_path"},
+        {"type_name", "PATH"},
+        {"envname", "LEMONADE_INIT_IMAGE"},
+        {"help", "Path to initial image for img2img"}
+    }},
+    {"--strength", {
+        {"option_name", "strength"},
+        {"type_name", "FLOAT"},
+        {"envname", "LEMONADE_STRENGTH"},
+        {"help", "Denoising strength for img2img (0.0-1.0)"}
+    }},
+    {"--sd3-mode", {
+        {"option_name", "sd3_mode"},
+        {"type_name", "MODE"},
+        {"allowed_values", {"text2img", "img2img", "inpainting", "removal", "outpainting", "controlnet_canny", "controlnet_depth", "controlnet_tile"}},
+        {"envname", "LEMONADE_SD3_MODE"},
+        {"help", "SD3 generation mode"}
+    }},
+    {"--controlnet-scale", {
+        {"option_name", "controlnet_conditioning_scale"},
+        {"type_name", "SCALE"},
+        {"envname", "LEMONADE_CONTROLNET_SCALE"},
+        {"help", "ControlNet conditioning scale"}
+    }},
+    {"--t5-sequence-len", {
+        {"option_name", "t5_sequence_len"},
+        {"type_name", "N"},
+        {"envname", "LEMONADE_T5_SEQ_LEN"},
+        {"help", "T5 text encoder sequence length (SD3)"}
+    }}
 };
 
 static std::vector<std::string> get_keys_for_recipe(const std::string& recipe) {
@@ -97,6 +159,11 @@ static std::vector<std::string> get_keys_for_recipe(const std::string& recipe) {
         return {"ctx_size"};
     } else if (recipe == "sd-cpp") {
         return {"sd-cpp_backend", "steps", "cfg_scale", "width", "height"};
+    } else if (recipe == "ryzenai-sd") {
+        return {"steps", "cfg_scale", "width", "height", "negative_prompt", "seed", 
+                "num_images", "init_image_path", "strength", "sd3_mode", 
+                "controlnet_conditioning_scale", "t5_sequence_len", "control_image_path", 
+                "control_mask_path", "image_pads"};
     } else {
         return {};
     }

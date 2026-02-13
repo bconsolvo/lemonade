@@ -17,6 +17,7 @@
     "rocm": "master-506-1f30df9"
   },
   "ryzenai-server": "v1.7.0",
+  "ryzenai-sd-server": "v1.7.0",
   "flm": {
     "version": "v0.9.33",
     "min_npu_driver": "32.0.203.304"

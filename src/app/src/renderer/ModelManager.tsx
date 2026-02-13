@@ -276,6 +276,7 @@ const ModelManager: React.FC<ModelManagerProps> = ({ isVisible, width = 280 }) =
         'flm': 'FastFlowLM NPU',
         'llamacpp': 'Llama.cpp GPU',
         'ryzenai-llm': 'Ryzen AI LLM',
+        'ryzenai-sd': 'Ryzen AI SD NPU',
         'whispercpp': 'Whisper.cpp',
         'sd-cpp': 'StableDiffusion.cpp'
       };

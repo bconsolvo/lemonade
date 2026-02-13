@@ -1612,8 +1612,8 @@ void ModelManager::download_model(const std::string& model_name,
     // Use FLM pull for FLM models, otherwise download from HuggingFace
     if (actual_recipe == "flm") {
         download_from_flm(actual_checkpoint, do_not_upgrade, progress_callback);
-    } else if (actual_recipe == "llamacpp" || actual_recipe == "whispercpp" || actual_recipe == "sd-cpp") {
-        // For llamacpp (GGUF), whispercpp (.bin), and sd-cpp (.safetensors) models, use variant-aware download
+    } else if (actual_recipe == "llamacpp" || actual_recipe == "whispercpp" || actual_recipe == "sd-cpp" || actual_recipe == "ryzenai-sd") {
+        // For llamacpp (GGUF), whispercpp (.bin), sd-cpp (.safetensors), and ryzenai-sd (.safetensors) models, use variant-aware download
         download_from_huggingface(repo_id, variant, actual_mmproj, progress_callback);
     } else {
         // For non-GGUF models (ryzenai-llm, etc.), download all files (no variant filtering)

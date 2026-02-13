@@ -130,6 +130,11 @@ static const std::vector<RecipeBackendDef> RECIPE_DEFS = {
         {"cpu", {"x86_64"}},
     }},
 
+    // RyzenAI Stable Diffusion - Windows NPU (XDNA2)
+    {"ryzenai-sd", "default", {"windows"}, {
+        {"npu", {"XDNA2"}},
+    }},
+
     // FLM - Windows NPU (XDNA2)
     {"flm", "default", {"windows"}, {
         {"npu", {"XDNA2"}},
